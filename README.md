@@ -35,6 +35,10 @@ Hello world.
 
 ## Deploy
 
-Push to `main`. GitHub Actions builds Astro and deploys to GitHub Pages.
+Push to `main`. GitHub Actions builds Astro and publishes `dist/` to the `gh-pages` branch.
 
-In the repo **Settings → Pages**, set Source to **GitHub Actions** (not "Deploy from a branch").
+In the repo **Settings → Pages**:
+
+1. Source: **Deploy from a branch**
+2. Branch: **gh-pages** / **/ (root)**
+3. Save
