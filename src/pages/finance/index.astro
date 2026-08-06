@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const posts = (await getCollection('finance', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+<BaseLayout title="Finance · Ruilong Ren" description="Notes from learning investing and markets.">
+  <header class="page-header">
+    <h1>Finance</h1>
+    <p>Notes from learning investing and markets.</p>
+  </header>
+
+  {posts.length === 0 ? (
+    <div class="empty-state">
+      <p>还没有内容。在 <code>src/content/finance</code> 下新建 Markdown 即可发布。</p>
+      <p>示例文件名：<code>hello-world.md</code>，并写上 title / date 等 frontmatter。</p>
+    </div>
+  ) : (
+    <ul class="post-list">
+      {posts.map((post) => (
+        <li>
+          <a href={`/finance/${post.id}/`}>{post.data.title}</a>
+          <div class="post-meta">
+            <time datetime={post.data.date.toISOString()}>
+              {post.data.date.toLocaleDateString('en-CA')}
+            </time>
+            {post.data.description ? ` · ${post.data.description}` : ''}
+          </div>
+          {post.data.tags?.length ? (
+            <div class="post-tags">
+              {post.data.tags.map((tag) => <span class="tag">{tag}</span>)}
+            </div>
+          ) : null}
+        </li>
+      ))}
+    </ul>
+  )}
+</BaseLayout>

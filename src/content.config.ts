@@ -1,0 +1,27 @@
+import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
+
+const postSchema = z.object({
+  title: z.string(),
+  description: z.string().optional(),
+  date: z.coerce.date(),
+  tags: z.array(z.string()).default([]),
+  draft: z.boolean().default(false),
+});
+
+const blog = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
+  schema: postSchema,
+});
+
+const reading = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/reading' }),
+  schema: postSchema,
+});
+
+const finance = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/finance' }),
+  schema: postSchema,
+});
+
+export const collections = { blog, reading, finance };

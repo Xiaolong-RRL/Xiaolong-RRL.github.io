@@ -1,32 +1,40 @@
 # Ruilong Ren Homepage
 
-Personal academic homepage for [Ruilong Ren (???)](https://github.com/Xiaolong-RRL).
+Astro-powered personal site for [xiaolong-rrl.github.io](https://xiaolong-rrl.github.io/).
 
-## Preview locally
+## Sections
 
-```bash
-cd homepage
-python3 -m http.server 8765
-# open http://127.0.0.1:8765
-```
+- `/` — academic homepage
+- `/blog` — technical blog (`src/content/blog/*.md`)
+- `/reading` — reading notes (`src/content/reading/*.md`)
+- `/finance` — finance learning notes (`src/content/finance/*.md`)
 
-## Deploy to GitHub Pages
-
-1. Create a repo named `Xiaolong-RRL.github.io` (or any repo with Pages enabled).
-2. Push the contents of this folder to the `main` (or `gh-pages`) branch.
-3. In repo Settings ? Pages, set source to that branch / `/ (root)`.
+## Local development
 
 ```bash
-git init
-git add .
-git commit -m "Initial academic homepage"
-git branch -M main
-git remote add origin git@github.com:Xiaolong-RRL/Xiaolong-RRL.github.io.git
-git push -u origin main
+export PATH="$HOME/.local/node/bin:$PATH"   # if using the local Node install
+npm install
+npm run dev
 ```
 
-## Customize
+## Write a post
 
-- Avatar: `assets/avatar.jpg`
-- Links / papers: edit `index.html`
-- Styles: `css/style.css`
+Create `src/content/blog/my-first-post.md`:
+
+```md
+---
+title: My first post
+description: A short note
+date: 2026-08-04
+tags: [notes]
+draft: false
+---
+
+Hello world.
+```
+
+## Deploy
+
+Push to `main`. GitHub Actions builds Astro and deploys to GitHub Pages.
+
+In the repo **Settings → Pages**, set Source to **GitHub Actions** (not "Deploy from a branch").

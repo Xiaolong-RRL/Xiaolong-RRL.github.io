@@ -1,0 +1,25 @@
+---
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/reading', label: 'Reading' },
+  { href: '/finance', label: 'Finance' },
+];
+
+function isActive(href: string) {
+  if (href === '/') return pathname === '/';
+  return pathname === href || pathname.startsWith(href + '/');
+}
+---
+<nav class="site-nav" aria-label="Primary">
+  <div class="site-nav-inner">
+    <a class="site-brand" href="/">Ruilong Ren</a>
+    <div class="site-nav-links">
+      {links.map((link) => (
+        <a href={link.href} class:list={[{ active: isActive(link.href) }]}>{link.label}</a>
+      ))}
+    </div>
+  </div>
+</nav>
